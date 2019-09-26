@@ -1,0 +1,44 @@
+.header__basket-min{
+	// display:none!important;
+	position:fixed;
+	display:flex;	
+	top:10px;
+	right:10px;
+	// border:2px solid green;
+	border:2px solid rgba(9, 78, 9, 1);
+	// background:rgba(11, 77, 2,0.5);
+	background:rgba(12, 119, 12, 0.8);
+	width: 70px;
+	height: 70px;
+	border-radius:50%;
+	transition:0.3s;
+	z-index: 100;
+	.smart-basket__min{
+		margin:auto;
+		// background:rgba(11, 77, 2,0.5);
+		background:transparent;
+		border-radius:50%;
+		border:none;
+		
+			img.smart-basket__min-icon{
+				fill:green;
+				width: 40px!important;
+				height:40px!important;
+				cursor:pointer;
+			}
+			span.smart-basket__min-count{
+				color:yellow;
+				position:absolute;
+				top: 10px;
+				right: 10px;
+				cursor:pointer;
+		}
+		
+	}
+
+}
+.header__basket-min:hover{
+	// background:rgba(11, 77, 2,0.7);
+	background:rgba(12, 119, 12, 1);
+	cursor:pointer;
+}

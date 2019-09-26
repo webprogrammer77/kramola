@@ -1,0 +1,6 @@
+User-agent: 
+Crawl-delay: 10
+Host: kramola-books.ru
+Disallow: /smartbasket/
+Sitemap: https://kramola-books.ru
+ 

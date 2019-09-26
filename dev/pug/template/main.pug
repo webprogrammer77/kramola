@@ -1,0 +1,71 @@
+include ../utils/mixins
+block variables
+
+doctype html
+html(lang="ru-RU")
+	head
+		// Yandex.Metrika counter
+		//- script(type='text/javascript').
+		//- 	(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+		//- 	m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+		//- 	(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+		//- 	ym(55309237, "init", {
+		//- 	clickmap:true,
+		//- 	trackLinks:true,
+		//- 	accurateTrackBounce:true,
+		//- 	webvisor:true,
+		//- 	ecommerce:"dataLayer"
+		//- 	});
+		//- noscript
+		//- 	div
+		//- 		img(src='https://mc.yandex.ru/watch/55309237', style='position:absolute; left:-9999px;', alt='')
+		// /Yandex.Metrika counter
+		meta(charset="utf-8")
+		title #{title}
+		<!--[if IE]>
+		meta(http-equiv='X-UA-Compatible', content="IE = edge")
+		<![endif]-->
+		base(href="/")
+		meta(name="viewport" content="width=device-width,initial-scale=1")
+		meta(name="keywords" content="учебники образование советский методика")
+		meta(name="description" content="Магазин учебников времен Советского Союза")
+		link(rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon")
+		link(rel='stylesheet', type='text/css', href!='smartbasket/css/smartbasket.min.css?v=<?=md5(time()); ?>' )
+		link(rel="stylesheet" type='text/css' href!="static/css/styles.min.css?v=<?=md5(time())?>")
+		script(src="https://kit.fontawesome.com/e06a0077fb.js")
+		<!--[if lt IE 9]>
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js")
+		<![endif]-->
+	body(class=pageClass)
+		.wrapper
+			include ../modules/header/header
+			main.content
+				block content
+				include ../modules/sendpulse/sendpulse
+			include ../modules/footer/footer
+		script(src="static/js/jquery-3.3.1.min.js")
+		script(src!="static/js/libs.min.js?v=<?=md5(time())?>")
+		script(src!="smartbasket/smartbasket.min.js?v=<?=md5(time())?>")
+		script(src!="static/js/main.js?v=<?=md5(time())?>")
+		block script
+			script(defer='').
+				function isVisible(elem) {
+				var coords = elem.getBoundingClientRect();
+				var windowHeight = document.documentElement.clientHeight;
+
+				var topVisible = coords.top > 0 && coords.top < windowHeight;
+				var bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+				return topVisible || bottomVisible;
+				}
+				function showVisible() {
+				for (var img of document.querySelectorAll("img")) {
+				var realSrc = img.dataset.src;
+				if (!realSrc) continue;
+				if (isVisible(img)) {
+				img.src = realSrc;
+				img.dataset.src = "";
+				}
+				}
+				}
+				window.addEventListener("scroll", showVisible);
+				showVisible();

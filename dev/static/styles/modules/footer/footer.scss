@@ -1,0 +1,30 @@
+footer { 
+	flex: 0 0 auto; 
+	height:120px;
+	background: rgba(0,0,0,0.8);
+	background: rgba(221, 4, 4,0.8);
+	color:#fff;
+	font-family:"Roboto",sans-serif;
+	padding:10px;
+}
+.nav-footer li{
+	padding:5px;
+}
+.nav-footer a{
+	display:inline-block;
+	color:#fff;
+	transition:0.3s;
+}
+.nav-footer a:hover{
+	color:gold;
+	border-bottom: 2px solid gold;
+	 margin-bottom:-2px;
+}
+.nav-footer i{
+	padding-right:7px;
+}
+ul.nav-footer__list li.nav-footer__item{}
+
+ul.nav-footer__list li.nav-footer__item a.nav-header__link{
+	//color:#fff;
+}
