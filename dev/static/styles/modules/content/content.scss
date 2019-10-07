@@ -39,7 +39,11 @@ h1.main-title{
 	.section__col.product.product--komplekt .product__pic{
 		margin-right: 40px;
 		padding-top: 40px;
-		
+		max-width: 300px;
+    width: 25%;
+	}
+	.section__col.product.product--komplekt .product__descripton{
+		padding-left:20px;
 	}
 	.section__col.product.product--komplekt .product__pic .product__name{
 		padding-top: 40px;
@@ -102,6 +106,7 @@ p.product-desc__title-text{
 .product__descripton{
 	display:flex;
 	flex-direction:column;
+	padding-left:20px;
 }
 
 p.product-desc__text{
@@ -127,7 +132,7 @@ p.product-desc__text{
 	height:110px;
 	overflow:hidden;
 }
-.product__name.product__name--kompekt{
+.product__name.product__name--komplekt{
 	height:auto;
 }
 .product__name p{

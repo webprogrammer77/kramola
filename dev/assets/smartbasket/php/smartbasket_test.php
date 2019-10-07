@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 											</div></td>';
 					}
 					if($k == 'productImg'){
-						$productImg = '<img src="https://kramola-books.ru/' . $v . '" width="100" height="100" alt="Ваш заказ">';
+						$productImg = '<img src="' . $host . $v . '" width="100" height="100" alt="Ваш заказ">';
 						$body.=
 							'
 											<td style="width: 100px; padding-top:15px; padding-bottom:15px; padding-right:15px; padding-left:15px; text-align:center; border-top:1px; border-left:1px; border-right:0; border-bottom:0; border-color:#e2e2e2; border-style: solid;" >
@@ -216,7 +216,7 @@ try {
     $mail->Port       = PORT;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom(SENDER, 'kramola-books');
+    $mail->setFrom(SENDER, HOST);
    
 	if(!empty($userEmail)){
 		$mail->addAddress($userEmail);               // Name is optional

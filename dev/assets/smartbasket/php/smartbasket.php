@@ -3,7 +3,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/smartbasket/php/config.php');
-
+$host = 'https://' . $_SERVER["HTTP_HOST"];
+$origin = $_SERVER["HTTPS"]?'https://' . $_SERVER["HTTP_HOST"]:'http://'. $_SERVER["HTTP_HOST"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -11,62 +12,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if(empty($_POST['userName'])) {
 				echo 'notName';
 				$name='';
+				$userName = '';
 			} else {
 				$name = "<b>Имя: </b>" . strip_tags($_POST['userName']) . "<br>";
+				$userName = clean($_POST['userName']);
 			}
 		}
 		if (isset($_POST['userTel']) ) {
 			if(empty($_POST['userTel'])) {
 				echo 'notTel';
 				$tel = '';
+				$userTel ='';
 			} else {
 				$tel = "<b>Телефон: </b>" . strip_tags($_POST['userTel']) . "<br>";
+				$userTel =clean($_POST['userTel']);
 			}
 		}
-
+		$userEmail = '';
 		if (isset($_POST['userEmail']) ) {
 			if(empty($_POST['userEmail'])) {
 				echo 'notEmail';
 				$email = '';
+				
 			} else {
 				$email = "<b>Email: </b>" . strip_tags($_POST['userEmail']) . "<br>";
+				$userEmail = clean($_POST['userEmail']);
 			}
 		}
+		$userAdress = '';
 		if (isset($_POST['userAdress']) ) {
 			if(empty($_POST['userAdress'])) {
 				echo 'notAdress';
 				$adress = '';
+				
 			} else {
 				$adress = "<b>Адрес: </b>" . strip_tags($_POST['userAdress']) . "<br>";
+				$userAdress = clean($_POST['userAdress']);
 			}
 		}
+		$delivery_type = '';
 		if (isset($_POST['dostavka']) ) {
 			if(empty($_POST['dostavka'])) {
 				echo 'notDelivery_type';
-				$delivery_type = '';
+				
 			} else {
-				$delivery_type = strip_tags($_POST['dostavka']);
+				//$delivery_type = strip_tags($_POST['dostavka']);
+				$delivery_type = clean($_POST['dostavka']);
 			}
 		}
 		
 		
 		/*------------------insert in orders----------------------------*/
 		
-		$link = mysql_connect(HOSTNAME,USERNAME,PASSWORD) OR DIE("Не могу создать соединение ");
-		mysql_select_db(DBNAME) or die(mysql_error());
+		$link = $link = mysqli_connect(HOSTNAME,USERNAME,PASSWORD,DBNAME);
+		if(!$link){
+			printf("Невозможно подключиться к базе данных. Код ошибки: %s\n", mysqli_connect_error());
+			//exit;
+		}	else{
+			mysqli_query($link,'set names utf8');
+			$date_order = date("Y-m-d H:i:s");
 
-		mysql_query('set names utf8');
+			$query_add =  "INSERT INTO orders (`order_date`,`customer`,`phone`,`email`,`address`,`delivery_type`)  VALUES ('".$date_order."','".$userName."','".$userTel."','".$userEmail."','".$userAdress."','".$delivery_type."')";
 
-		$userName = clean($_POST['userName']);			
-		$userTel =clean($_POST['userTel']);
-		$userEmail = clean($_POST['userEmail']);
-		$userAdress = clean($_POST['userAdress']);
-		$date_order = date("Y-m-d H:i:s");
-		$delivery_type = clean($_POST['dostavka']);
-		echo $delivery_type;
-		$query_add =  "INSERT INTO orders (`order_date`,`customer`,`phone`,`email`,`address`,`delivery_type`)  VALUES ('".$date_order."','".$userName."','".$userTel."','".$userEmail."','".$userAdress."','".$delivery_type."')";
+			mysqli_query($link, $query_add) or die(mysqli_error($link));
+			/*
+			if (!mysqli_query($link,$query_add))
+			{
+				echo("Error description: " . mysqli_error($link));
+			}
+			*/
+		}	
 
-		mysql_query($query_add) or die(mysql_error());
+	
 		
 		/*-----------------//insert in orders---------------------------*/
 		
@@ -96,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 											</div></td>';
 					}
 					if($k == 'productImg'){
-						$productImg = '<img src="https://kramola-books.ru/' . $v . '" width="100" height="100" alt="Ваш заказ">';
+						$productImg = '<img src="' . $origin . '/' . $v . '" width="100" alt="Ваш заказ">';
 						$body.=
 							'
 											<td style="width: 100px; padding-top:15px; padding-bottom:15px; padding-right:15px; padding-left:15px; text-align:center; border-top:1px; border-left:1px; border-right:0; border-bottom:0; border-color:#e2e2e2; border-style: solid;" >
@@ -167,12 +184,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				$body.= '</tr>';
 				/*---------------INSERT in order_items------------------*/
-					$res_id = mysql_query("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1") or die(mysql_error());
-					$par_name=mysql_fetch_array($res_id);
-					$orderId =$par_name['order_id'];	
-					
-					$query_add_2 =  "INSERT INTO order_items (`order_id`,`name`,`sku`,`price`,`quantity`)  VALUES ('".$orderId."','".$productName."','".$productSku."','".$productPrice."','".$productQuantity."')";					
-					mysql_query($query_add_2) or die(mysql_error());
+					/*
+					$res_id = mysqli_query($link,'SELECT order_id FROM orders_test ORDER BY order_id DESC LIMIT 1');
+					if(!mysqli_query($link,'SELECT order_id FROM orders_test ORDER BY order_id DESC LIMIT 1')){
+					mysqli_error($link);
+					}
+					$par_name = mysqli_fetch_array($res_id, MYSQLI_ASSOC);
+					$orderId = $par_name['order_id'];	
+					mysqli_free_result($res_id);
+					*/
+					$orderId = getOrderId($link);
+					if(!$orderId){
+						$orderId = $_SERVER["REQUEST_TIME"];
+					}
+					$query_add_2 =  "INSERT INTO order_items (`order_id`,`name`,`sku`,`price`,`quantity`)  VALUES ('".$orderId."','".$productName."','".$productSku."','".$productPrice."','".$productQuantity."')";
+					if (!mysqli_query($link,$query_add_2))
+					{
+						echo("Error description: " . mysqli_error($link));
+					}
 				/*---------------//INSERT in order_items------------------*/
 			}
 
@@ -180,37 +209,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$bodybottom = '</table>';
 	}
 
-	if(defined('HOST') && HOST != '') {
-		$mail = new PHPMailer;
-		$mail->isSMTP();
-		$mail->Host = HOST;
-		$mail->SMTPAuth = true;
-		$mail->Username = LOGIN;
-		$mail->Password = PASS;
-		//$mail->SMTPSecure = 'ssl';		
-		$mail->Port = PORT;
-		$mail->AddReplyTo(SENDER);
-	} else {
-		$mail = new PHPMailer;
-	}
+				/*--------------------------------------PHPMAILER-----------------------------------------------*/
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
 
-		$mail->setFrom(SENDER);
-		if(!empty($userEmail)){
-        $mail->addAddress($userEmail);
-    }
-    $mail->addAddress(CATCHER);
+
+// Load Composer's autoloader
+//require 'vendor/autoload.php';
+
+// Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+		$mail->CharSet = CHARSET;
+    $mail->SMTPDebug = DEBUG;                                   // Enable verbose debug output
+    $mail->isSMTP();                                            // Set mailer to use SMTP
+    $mail->Host       = HOST;  // Specify main and backup SMTP servers
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = LOGIN;                     // SMTP username
+    $mail->Password   = PASS;                               // SMTP password
+    $mail->SMTPSecure = SECURE;                                  // Enable TLS encryption, `ssl` also accepted
+    $mail->Port       = PORT;                                    // TCP port to connect to
+
+    //Recipients
+    $mail->setFrom(SENDER, HOST);
+   
+	if(!empty($userEmail)){
+		$mail->addAddress($userEmail);               // Name is optional
+		//$mail->addCC($userEmail);               // Name is optional
+	}	else{
+		 $mail->addAddress(CATCHER, 'администратор');     // Add a recipient
+	}
     
-    $mail->CharSet = CHARSET;
-    $mail->isHTML(true);
-		$mail->Subject = SUBJECT; // Заголовок письма
-		$mail->Body = "$bodyHeader $body $bodybottom";
-		if(!$mail->send()) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        } else {
-            //echo '<p class="smartlid__respond-success">' . SUCCESSMSGS . '</p>';
-           // echo 'successmsgs';
-					 echo 'Message sent success';
-        }
+    //$mail->addReplyTo('webprogrammer77@yandex.ru', 'Information');
+    $mail->addReplyTo(CATCHER);
+    //$mail->addCC('webprogrammer77@mail.ru');
+    //$mail->addBCC('webprogrammer77@gmail.com');
+
+    // Attachments
+   // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+    // Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = SUBJECT2;
+    $mail->Body    = "$bodyHeader $body $bodybottom";
+    $mail->AltBody = "$userName спасибо за заказ";
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
+		
+/*----------------------------------------------------//-----------------------------------------------------------------------*/
 } else {
 	header ("Location: /");
 }
@@ -218,7 +271,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	
 
-mysql_close($link);
+function getOrderId($link){
+	$query = 'SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1';
+	$res_id = mysqli_query($link, $query);
+	if(!mysqli_query($link, $query)){
+		mysqli_error($link);
+	}
+	$par_name = mysqli_fetch_array($res_id, MYSQLI_ASSOC);
+	$orderId = $par_name['order_id'];	
+	mysqli_free_result($res_id);
+	return $orderId;
+}
+
+	
+
+mysqli_close($link);
+
 
 			
 				//$customer_email = $email;

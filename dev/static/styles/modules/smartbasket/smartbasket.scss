@@ -77,3 +77,8 @@
 	margin-top: 20px;
 	border: 1px solid #e2e2e2;
 }
+@media(max-width:510px){
+	.sp-form-fixed .sp-btn-close, .sp-form-popup .sp-btn-close {
+		right: 0px!important;
+	}
+}
