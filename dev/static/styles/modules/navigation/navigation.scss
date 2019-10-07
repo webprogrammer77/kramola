@@ -24,7 +24,8 @@ nav.nav-header{
 						}
 					}
 				}
-				li.nav-header__item:hover a{
+				li.nav-header__item:hover a,
+				li.nav-header__item.active a{
 					color:gold;
 					border-bottom: 2px solid gold;
 					padding-top:2px;

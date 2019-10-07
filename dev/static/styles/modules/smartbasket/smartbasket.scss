@@ -42,3 +42,38 @@
 	background:rgba(12, 119, 12, 1);
 	cursor:pointer;
 }
+
+.smart-basket{
+	// color:$smartbasket_modal_color;
+}
+
+.smart-basket__delivery-title {
+	margin-top: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.smart-basket__radio-input{
+	margin-right: 10px;
+	cursor:pointer;
+}
+.smart-basket__radio-input + label{	
+	cursor:pointer;
+}
+#pikup {}
+
+#delivery {
+	margin-top: 20px;
+}
+
+#delivery + label + input {
+	height: 0;
+	transition: 0.3s;
+	margin-top: 10px;
+	border: none;
+}
+
+#delivery:checked + label + input {
+	height: 60px;
+	margin-top: 20px;
+	border: 1px solid #e2e2e2;
+}

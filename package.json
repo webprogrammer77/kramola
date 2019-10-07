@@ -1,9 +1,9 @@
 {
-  "name": "start-template",
+  "name": "kramola-template",
   "version": "1.0.0",
-  "description": "My start Template",
+  "description": "Site Dighistore",
   "main": "index.js",
-  "author": "Salamatin Anatoliy",
+  "author": "webprogrammer77",
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.26.3",

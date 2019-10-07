@@ -18,7 +18,7 @@ $(function() {
   var inputAdress_old =
     '<div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__user-input" type="text" placeholder="Введите адрес" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p></div>';
   var inputAdress =
-    '<p class="smart-basket__delivery-title">Выберите способ доставки:</p><div class="smart-basket__input-wrapper pikup" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="pickup" name="dostavka" value="Самовывоз"> Самовывоз по адресу:  г.Москва, Большой Факельный переулок д.3 стр.2</div><div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="delivery" name="dostavka" value = "Доставка"> Доставка<input class="smart-basket__user-input" type="text" placeholder="Введите адрес доставки" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p></div>';
+    '<p class="smart-basket__delivery-title">Выберите способ доставки:</p><div class="smart-basket__input-wrapper pikup" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="pickup" name="dostavka" value="Самовывоз"><label for="pickup">Самовывоз по адресу: г.Москва, Большой Факельный переулок д.3 стр.2</label></div><div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="delivery" name="dostavka" value="Доставка"><label for="delivery">Доставка</label><input class="smart-basket__user-input" type="text" placeholder="Введите адрес доставки" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p></div>';
 
   /*-----------------------------------*/
   var modalSuccess =
@@ -144,6 +144,20 @@ $(function() {
       $(".smart-basket__min-count").html(count);
     });
   }
+
+	var pathname = window.location.pathname;
+	var current_href = pathname.replace('/', '');
+	var nav_links = $('.nav-header__link');
+	if(pathname == '/'){
+		current_href = 'index.html';
+	}
+	
+	$.each(nav_links, function(index, value) {
+		if($(this).attr('href') == current_href){
+			nav_links.not($(this)).parent().removeClass('active');
+			$(this).parent().addClass('active');
+		}
+	});
 
   $(document).on("click", ".nav-header__btn", function(e) {
     $("body").toggleClass("noScroll");

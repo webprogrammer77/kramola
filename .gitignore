@@ -1,0 +1,7 @@
+yarn.lock
+dev/assets/smartbasket/php/config.php
+dev/assets/smartbasket/php/config_test.php
+dev/assets/.htaccess
+node_modules/**
+assets/**
+build/**
