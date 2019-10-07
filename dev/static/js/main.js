@@ -15,8 +15,6 @@ $(function() {
     productPrice: "product__price-number",
     productSize: "product__size"
   });
-  var inputAdress_old =
-    '<div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__user-input" type="text" placeholder="Введите адрес" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p></div>';
   var inputAdress =
     '<p class="smart-basket__delivery-title">Выберите способ доставки:</p><div class="smart-basket__input-wrapper pikup" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="pickup" name="dostavka" value="Самовывоз"><label for="pickup">Самовывоз по адресу: г.Москва, Большой Факельный переулок д.3 стр.2</label></div><div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="delivery" name="dostavka" value="Доставка"><label for="delivery">Доставка</label><input class="smart-basket__user-input" type="text" placeholder="Введите адрес доставки" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p></div>';
 
