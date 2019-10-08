@@ -68,8 +68,9 @@ h3.product-desc__title{
 	text-align:center;
 	padding-bottom:20px;
 	font-size:30px;
-	color:blue;
-	color:rgb(221, 4, 4);
+	/*color:blue;
+	color:rgb(221, 4, 4);*/
+	color:rgba(12,119,12,1);
 }
 p.product-desc__title-text{
 	text-indent:30px;
@@ -181,9 +182,13 @@ text-indent:0;
 	border-bottom:1px solid rgba(9, 78, 9, 1);
 	margin-top:1px;
 }
+.product__price.product__add-to-cart-button.product__price--long{
+	width:180px;
+}
 .product__price i{
 	padding-right:7px;
 }
 .product__price .price{
 	padding-right:5px
 }
+

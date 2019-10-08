@@ -1,0 +1,14 @@
+.video-main{
+	display:block;
+	margin: 20px auto 40px;
+
+	width:789px;
+	height:444px;
+}
+@media(max-width:789px){
+	.video-main{
+		margin: 0 auto 30px;
+		width:93%;
+		height:48vw;
+	}
+}

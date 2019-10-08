@@ -16,13 +16,16 @@ $(function() {
     productSize: "product__size"
   });
   var inputAdress =
-    '<p class="smart-basket__delivery-title">Выберите способ доставки:</p><div class="smart-basket__input-wrapper pikup" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="pickup" name="dostavka" value="Самовывоз"><label for="pickup">Самовывоз по адресу: г.Москва, Большой Факельный переулок д.3 стр.2</label></div><div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="delivery" name="dostavka" value="Доставка"><label for="delivery">Доставка</label><input class="smart-basket__user-input" type="text" placeholder="Введите адрес доставки" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p></div>';
+    '<p class="smart-basket__delivery-title">Выберите способ доставки:</p><div class="smart-basket__input-wrapper pikup" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="pickup" name="dostavka" value="Самовывоз"><label for="pickup">Самовывоз по адресу: г.Москва, Большой Факельный переулок д.3 стр.2</label></div><div class="smart-basket__input-wrapper adress" style="width:100%; margin-top:7px;"><input class="smart-basket__radio-input" type="radio" id="delivery" name="dostavka" value="Доставка"><label for="delivery">Доставка</label><input class="smart-basket__user-input" type="text" placeholder="Введите адрес доставки" name="userAdress"><p style="margin-top:10px;">Доставляем книги по России и во все страны мира. Стоимость доставки в ваш регион вам сообщит менеджер после оформления заказа!</p><input type="hidden" name="roistat" id="roistat" value=""></div>';
 
   /*-----------------------------------*/
   var modalSuccess =
     '<div class="success_wrapper smart-basket__alert-wrapper"><div class="smart-basket__alert"><div class="smart-basket__alert-icon"><svg class="" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2"><circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"></circle><polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "></polyline></svg></div><div class="smart-basket__alert-text">Спасибо за покупку! <br> Наш менеджер свяжется с вами.</div><div class="smart-basket__alert-footer" style="justify-content:center;"><button class="smart-basket__alert-button smart-basket__alert-button_close success">Продолжить покупки</button></div></div></div>';
 
-  $(document).on("click", ".smart-basket__send-form", function(e) {
+		$(".product__price.product__add-to-cart-button").on("click", function(e) {
+			setRoistat();
+		});
+	$(document).on("click", ".smart-basket__send-form", function(e) {
 		$(this).prop("disabled", true);
     $("body").css("overflow", "auto");
     setTimeout(function() {
@@ -53,6 +56,7 @@ $(function() {
   }, 200);
 
   $(document).on("click", ".smart-basket__min", function(e) {
+		setRoistat();
     $("body").css("overflow", "auto");
     if ($(".smart-basket__input-wrapper.adress").length == 0) {
       $(".smart-basket__user-info").append(inputAdress);
@@ -62,13 +66,13 @@ $(function() {
   });
 
   $(document).on(
-    "click",
-    ".smart-basket__alert-button.smart-basket__alert-button_by",
-    function(e) {
+    "click", ".smart-basket__alert-button.smart-basket__alert-button_by", function(e) {
+			
       if ($(".smart-basket__input-wrapper.adress").length == 0) {
         $(".smart-basket__user-info").append(inputAdress);
       }
-      addQuantityHtml();
+			addQuantityHtml();
+			setRoistat();
     }
   );
 
@@ -261,5 +265,32 @@ $(function() {
     $(".sp-checkbox-option [type=checkbox]").attr("checked", true);
   });
 
-  /*----------------------//sendpulse--------------------*/
+	/*----------------------//sendpulse--------------------*/
+	/*------------------------ROISTAT------------------------------ */	
+	
+	setTimeout(function(){
+		setRoistat();
+			
+		},777);
+	function setRoistat(){
+		var roistatId = getCookie('roistat_visit'),
+		roistatInput = $('#roistat');
+		setTimeout(function(){
+			if(roistatId !== undefined || roistatId !== '' || roistatId !== null){
+				roistatInput.val(roistatId);				
+			}
+			console.log('roistat: ' + roistatId);
+		},100);
+	}
+	
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	}
+	
+	
+
+	/*------------------------//ROISTAT------------------------------ */
 });
