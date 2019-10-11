@@ -39,10 +39,12 @@ html(lang="ru-RU")
 		meta(name="description" content="Магазин учебников времен Советского Союза")
 		link(rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon")
 		link(rel='stylesheet', type='text/css', href!='smartbasket/css/smartbasket.min.css?v=<?=md5(time()); ?>' )
+		link(rel='stylesheet', type='text/css', href!='static/font-awesome/css/font-awesome.min.css?v=<?=md5(time()); ?>' )
 		link(rel="stylesheet" type='text/css' href!="static/css/styles.min.css?v=<?=md5(time())?>")
-		script(src="https://kit.fontawesome.com/e06a0077fb.js")
+		//- script(src="https://kit.fontawesome.com/e06a0077fb.js")
 		<!--[if lt IE 9]>
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js")
+		//- link(rel="stylesheet" type='text/css' href!="static/css/styles.min.9.css?v=<?=md5(time())?>")
 		<![endif]-->
 	body(class=pageClass)
 		.wrapper

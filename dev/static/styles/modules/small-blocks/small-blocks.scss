@@ -2,6 +2,9 @@
 	height:100%;
 	width:80px;
 	// display:flex;
+	display:inline-block;
+	float:left;
+	line-height:50px;
 	.logo__link{
 		display:inline-block;
 		width: 80px;

@@ -1,0 +1,25 @@
+header.header {
+
+	height:50px;
+	background-color: rgba(221, 4, 4,0.8);
+	display: block;
+	
+
+	.container {}
+	.container:after {
+	content:'';
+	display:table;
+	clear:both;
+
+	}
+}
+
+@media (max-width:1180px) {
+	header.header {
+		position: fixed;
+		width: 100vw;
+		z-index: 99;
+	}
+
+	
+}

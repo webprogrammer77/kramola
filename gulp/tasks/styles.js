@@ -17,7 +17,7 @@ module.exports = function () {
             .pipe(sourcemaps.init())
             .pipe(scss())
             .pipe(autoprefixer({
-                 overrideBrowserslist:  ['last 3 versions']
+                 overrideBrowserslist:  ['last 6 versions']
             }))
             .pipe(sourcemaps.write())
             .pipe(rename('styles.min.css'))
@@ -28,7 +28,7 @@ module.exports = function () {
         return $.gulp.src(stylesPATH.input + 'styles.scss')
             .pipe(scss())
             .pipe(autoprefixer({
-                 overrideBrowserslist:  ['last 3 versions']
+                 overrideBrowserslist:  ['last 6 versions']
             }))
             .pipe(csscomb())
             .pipe($.gulp.dest(stylesPATH.ouput))

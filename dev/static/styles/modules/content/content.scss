@@ -1,3 +1,10 @@
+@media (max-width:1180px) {
+
+	.content {
+		padding-top: 50px;
+
+	}
+}
 .section{
 	padding:20px;
 	font-family:'Roboto',Arial,sans-serif;
@@ -169,7 +176,7 @@ text-indent:0;
 	padding:7px 7px;
 	margin-top: auto;
 	color:#fff;
-	background:rgba(12, 119, 12, 0.8);
+	background-color:rgba(12, 119, 12, 0.8);
 	width:155px;
 	margin:0 auto;
 	border-bottom:2px solid rgba(9, 78, 9, 1);
@@ -178,7 +185,7 @@ text-indent:0;
 }
 .product__price:hover{
 	cursor:pointer;
-	background:rgba(12, 119, 12, 1);
+	background-color:rgba(12, 119, 12, 1);
 	border-bottom:1px solid rgba(9, 78, 9, 1);
 	margin-top:1px;
 }
