@@ -124,8 +124,11 @@ nav.nav-header ul.nav-header__list.active{
 	right: 0;
 	background-color: rgba(221, 4, 4,0.8);
 	padding-top:20px;
+	padding-bottom:20px;
 	padding-right:30px;
 	z-index: 99;
+	height:auto;
+	overflow:auto;
 	 li{
 		 width:100%;
 		height:50px;

@@ -38,7 +38,9 @@
     "@fortawesome/fontawesome-free": "^5.10.2",
     "bootstrap": "latest",
     "font-awesome": "latest",
+    "gulp-util": "^3.0.8",
     "normalize.css": "^8.0.0",
-    "svg4everybody": "^2.1.9"
+    "svg4everybody": "^2.1.9",
+    "vinyl-ftp": "^0.6.1"
   }
 }
